@@ -69,5 +69,11 @@ public class ProductController {
         ModelAndView modelAndView = new ModelAndView("redirect:/products");
         return modelAndView;
     }
+    @GetMapping("/view/{id}")
+    public ModelAndView showView(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("view");
+        modelAndView.addObject("product", productService.findById(id).get());
+        return modelAndView;
+    }
 
 }
