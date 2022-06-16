@@ -31,7 +31,7 @@ public class ProductController {
             if(search.isPresent()){   //check tồn tại của optuon
                 products = productService.findAllByNameContaining(search.get());
             } else {
-                products = productService.findAll();
+                products = productService.findAllByOrderByPrice();
             }
             ModelAndView modelAndView = new ModelAndView("/list");
             modelAndView.addObject("product", products);
@@ -88,14 +88,14 @@ public class ProductController {
         modelAndView.addObject("product", productService.findById(id).get());
         return modelAndView;
     }
-//    @GetMapping("/search")
-//    public ModelAndView findAllByNameContainingProduct(@RequestParam String name) {
-//        productService.findAllByNameContaining(name);
-//        ModelAndView modelAndView = new ModelAndView("search");
-//        modelAndView.addObject("name");
-//        return modelAndView;
-//
-//    }
+
+    @GetMapping("/top4New")
+    public ModelAndView top4New() {
+        ModelAndView modelAndView = new ModelAndView("new");
+        modelAndView.addObject("name",productService.getTop4New());
+        return modelAndView;
+    }
+
 
 
 

@@ -47,5 +47,10 @@ public class ProductService implements IProductService {
         return productReponsitory.findAllByOrderByPrice();
     }
 
+    @Override
+    public Iterable<Product> getTop4New() {
+        return productReponsitory.getTop4New();
+    }
+
 
 }

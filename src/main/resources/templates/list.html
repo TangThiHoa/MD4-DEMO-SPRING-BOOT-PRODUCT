@@ -4,15 +4,20 @@
 </head>
 <body>
 <h3>Product</h3>
+
+<p>
+    <a th:href="@{/products/create}">
+        Add new product
+    </a><br>
+    <br>
+    <a th:href="@{/products/top4New}">
+        List new product
+    </a>
+</p>
 <form>
     <input type="text" name="search">
     <button>Search</button>
 </form>
-<p>
-    <a th:href="@{/products/create}">
-        Add new product
-    </a>
-</p>
 
 <div class="notify">
     <div th:if="${success}">
