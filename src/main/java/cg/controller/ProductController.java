@@ -19,12 +19,25 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
-    @GetMapping("")
-    public ModelAndView showForm() {
-        ModelAndView modelAndView = new ModelAndView("/list");
-        modelAndView.addObject("product", productService.findAll());
-        return modelAndView;
-    }
+//    @GetMapping("")
+//    public ModelAndView showForm() {
+//
+//        ModelAndView modelAndView = new ModelAndView("/list");
+//        modelAndView.addObject("product", productService.findAll());
+//        return modelAndView;
+        @GetMapping("")
+        public ModelAndView listProduct(@RequestParam("search") Optional<String> search) {
+            Iterable<Product> products;
+            if(search.isPresent()){   //check tồn tại của optuon
+                products = productService.findAllByNameContaining(search.get());
+            } else {
+                products = productService.findAll();
+            }
+            ModelAndView modelAndView = new ModelAndView("/list");
+            modelAndView.addObject("product", products);
+            return modelAndView;
+        }
+
 
     @GetMapping("/create")
     public ModelAndView createForm() {
@@ -75,5 +88,15 @@ public class ProductController {
         modelAndView.addObject("product", productService.findById(id).get());
         return modelAndView;
     }
+//    @GetMapping("/search")
+//    public ModelAndView findAllByNameContainingProduct(@RequestParam String name) {
+//        productService.findAllByNameContaining(name);
+//        ModelAndView modelAndView = new ModelAndView("search");
+//        modelAndView.addObject("name");
+//        return modelAndView;
+//
+//    }
+
+
 
 }

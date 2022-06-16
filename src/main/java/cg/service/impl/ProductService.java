@@ -35,4 +35,17 @@ public class ProductService implements IProductService {
         productReponsitory.deleteById(id);
 
     }
+
+    @Override
+    public Iterable<Product> findAllByNameContaining(String name) {
+        return productReponsitory.findAllByNameContaining(name);
+
+    }
+
+    @Override
+    public Iterable<Product> findAllByOrderByPrice() {
+        return productReponsitory.findAllByOrderByPrice();
+    }
+
+
 }
