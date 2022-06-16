@@ -12,13 +12,14 @@ import cg.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@CrossOrigin
+@Controller
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
     IProductService productService;
 
-        @GetMapping("")
+    @GetMapping("")
     public ModelAndView showForm() {
         ModelAndView modelAndView = new ModelAndView("/list");
         modelAndView.addObject("product", productService.findAll());
@@ -39,7 +40,34 @@ public class ProductController {
         return modelAndView;
     }
 
+    @GetMapping("/edit/{id}")
+    public ModelAndView editForm(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("edit");
+        Product product = productService.findById(id).get();
+        modelAndView.addObject("product", product);
+        return modelAndView;
+    }
 
+    @PostMapping("/update")
+    public ModelAndView update(Product product) {
+        productService.save(product);
+        ModelAndView modelAndView = new ModelAndView("redirect:/products");
+        return modelAndView;
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteForm(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("delete");
+        modelAndView.addObject("product", productService.findById(id).get());
+        return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView remove(Product product) {
+        productService.remove(product.getId());
+        ModelAndView modelAndView = new ModelAndView("redirect:/products");
+        return modelAndView;
+    }
 
 }

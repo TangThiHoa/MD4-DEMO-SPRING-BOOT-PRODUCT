@@ -8,10 +8,12 @@ import cg.service.IProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
 public class ProductService implements IProductService {
-@Autowired
+    @Autowired
     IProductReponsitory productReponsitory;
+
     @Override
     public Iterable<Product> findAll() {
         return productReponsitory.findAll();
